@@ -20,11 +20,6 @@ repositories {
 task configured {
 
   doLast {
-    new File("src/main/resources/version.properties").withWriter { w ->
-        Properties p = new Properties()
-        p['version'] = project.version.toString()
-        p.store w, null
-    } // this way Gradle adds version.properties to JAR?
   println 'configuration phase is probably ending'
   }
 }
