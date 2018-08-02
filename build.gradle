@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+println 'configuration phase started (after plugins{}!)'
+group 'com.exactpro'
+version '0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+/*dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}*/
+
+// stackoverflow.com/questions/45174989/building-with-intellij-2017-2-out-directory-duplicates-files-in-build-director/46035904#46035904
+// care for resources and META-INF for Gradle and IntelliJ separately
+task configured {
+
+  doLast {
+    new File("src/main/resources/version.properties").withWriter { w ->
+        Properties p = new Properties()
+        p['version'] = project.version.toString()
+        p.store w, null
+    } // this way Gradle adds version.properties to JAR?
+  println 'configuration phase is probably ending'
+  }
+}
+
+jar {
+  manifest {
+    attributes(
+     'Main-Class': 'com.exactpro.MyVer',
+     'Implementation-Build': '0.09-alpha'
+    )
+  }
+}
