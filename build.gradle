@@ -24,13 +24,6 @@ task configured {
   }
 }
 
-/*task buildInfo {
-    def cmd = "git rev-parse --short HEAD"
-    def proc = cmd.execute()
-    ext.revision = proc.text.trim()
-    ext.timestamp = (int)(new Date().getTime()/1000)
-}*/
-
 jar {
   ext.revision = 'git rev-list --count HEAD'.execute().text.trim()
   ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
