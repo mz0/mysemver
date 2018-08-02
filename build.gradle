@@ -24,11 +24,23 @@ task configured {
   }
 }
 
+/*task buildInfo {
+    def cmd = "git rev-parse --short HEAD"
+    def proc = cmd.execute()
+    ext.revision = proc.text.trim()
+    ext.timestamp = (int)(new Date().getTime()/1000)
+}*/
+
 jar {
+  ext.revision = 'git rev-list --count HEAD'.execute().text.trim()
+  ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
+  println "version is r${revision}.${hash}"
   manifest {
     attributes(
      'Main-Class': 'com.exactpro.MyVer',
-     'Implementation-Build': '0.09-alpha'
+     'Implementation-Build': "r${revision}.${hash}"
     )
   }
 }
+
+defaultTasks 'clean', 'jar'
