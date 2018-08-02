@@ -8,5 +8,13 @@ The build.properties is here for history only and is not printed as initially in
 
 This is a POC with fixed version string a.t.m.
 
+### Running
+
+```
+./gradlew jar
+java -jar build/libs/<TAB>MyVers-0.1-SNAPSHOT.jar
+```
+The thingy should output to console its build number.
+
 mz@exactpro.com
 Aug. 1, 2018
