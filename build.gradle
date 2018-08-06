@@ -1,26 +1,39 @@
+buildscript {
+  ext {
+    springBootVersion = '2.1.0.M1'
+  }
+  repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
 plugins {
     id 'java'
+  id 'org.springframework.boot' version "2.0.4.RELEASE"
+  id 'io.spring.dependency-management' version "1.0.6.RELEASE"
 }
 println 'configuration phase started (after plugins{}!)'
 group 'com.exactpro'
 version '0.1-SNAPSHOT'
-
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+  maven { url "https://repo.spring.io/snapshot" }
+  maven { url "https://repo.spring.io/milestone" }
 }
 
-
-// stackoverflow.com/questions/45174989/building-with-intellij-2017-2-out-directory-duplicates-files-in-build-director/46035904#46035904
-// treat resources and META-INF in Gradle and IntelliJ independently
-task configured {
-  doLast {
-  // here I was writing version.properties file, but no more
-  println 'configuration phase is probably ending'
-  }
+dependencies {
+  compile('org.springframework.boot:spring-boot-starter')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
+/*
 jar {
   ext.revision = 'git rev-list  --count HEAD'.execute().text.trim()
   ext.hash     = 'git rev-parse --short HEAD'.execute().text.trim()
@@ -34,3 +47,4 @@ jar {
 }
 
 defaultTasks 'clean', 'jar'
+*/
