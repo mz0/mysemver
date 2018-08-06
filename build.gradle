@@ -22,26 +22,32 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-  maven { url "https://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter')
+  compile('org.springframework.boot:spring-boot-starter-webflux')
   testCompile('org.springframework.boot:spring-boot-starter-test')
+  testCompile('io.projectreactor:reactor-test')
 }
 
-/*
-jar {
-  ext.revision = 'git rev-list  --count HEAD'.execute().text.trim()
-  ext.hash     = 'git rev-parse --short HEAD'.execute().text.trim()
-  //println "version is v${revision}.${hash}"
-  manifest {
-    attributes(
-     'Main-Class': 'com.exactpro.MyVer',
-     'Implementation-Build': "v${revision}.${hash}"
-    )
+springBoot {
+  ext.rev  = 'git rev-list  --count HEAD'.execute().text.trim()
+  ext.hash = 'git rev-parse --short HEAD'.execute().text.trim()
+//println "version is v${rev}.${hash}"
+  buildInfo {
+    properties {
+    //artifact = 'bravo'
+    //name = 'Charlie'
+      time = null // speed up builds
+      version = "v${rev}.${hash}"
+      additional = [
+        by: System.properties['user.name'] + "@" + InetAddress.localHost.hostName,
+        OS: "${System.properties['os.name']} (${System.properties['os.version']})",
+        foo: 'bar'
+      ]
+    }
   }
 }
 
-defaultTasks 'clean', 'jar'
-*/
+defaultTasks 'clean', 'bootRun'

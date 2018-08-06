@@ -1,18 +1,17 @@
-This is a HelloWorld-class program that shows its build (semver) number
+### This is a HelloWorld-class Spring Boot 2 App that shows its build number
 
-You may look at [GitVersion](https://gitversion.readthedocs.io) and get the idea ) 
-
-Here the goal is to generate 'Implementation-Build' attribute in Gradle's 
-configuration phase and read it at run time.
+build.gradle passes that as well as some arbitrary properties to Boot's buildInfo
+(you may find them in the JAR's BOOT-INF/classes/META-INF/build-info.properties)
+which HomeController reads at run time.
 
 ### Running
 
 ```
-./gradlew jar
-java -jar build/libs/<TAB>MyVers-0.1-SNAPSHOT.jar
+./gradlew
 ```
-The thingy should output to console its build number.
+The thingy starts Netty which responds to http://localhost:8080 (build number e.g. v15.9ee999a)
+or to localhost:8080?name=Foo.
 
 mz@exactpro.com
 
-Aug. 1, 2018
+Aug. 6, 2018
