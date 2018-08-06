@@ -12,11 +12,10 @@ buildscript {
   }
 }
 
-plugins {
-    id 'java'
-  id 'org.springframework.boot' version "2.0.4.RELEASE"
-  id 'io.spring.dependency-management' version "1.0.6.RELEASE"
-}
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
 println 'configuration phase started (after plugins{}!)'
 group 'com.exactpro'
 version '0.1-SNAPSHOT'
