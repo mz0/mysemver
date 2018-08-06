@@ -8,6 +8,7 @@ which HomeController reads at run time.
 
 ```
 ./gradlew
+# stop with Ctrl-C
 ```
 The thingy starts Netty which responds to http://localhost:8080 (build number e.g. v15.9ee999a)
 or to localhost:8080?name=Foo.
