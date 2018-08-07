@@ -15,7 +15,7 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-println 'configuration phase started (after plugins{}!)'
+println 'configuration phase started (after plugins{} and buildscript!)'
 group 'com.exactpro'
 version '0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -27,8 +27,15 @@ repositories {
 
 dependencies {
   compile('org.springframework.boot:spring-boot-starter-webflux')
+//compile 'org.springframework.boot:spring-boot-starter-log4j2'
   testCompile('org.springframework.boot:spring-boot-starter-test')
   testCompile('io.projectreactor:reactor-test')
+}
+
+configurations {
+  all {
+    //exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+  }
 }
 
 springBoot {
@@ -37,9 +44,7 @@ springBoot {
 //println "version is v${rev}.${hash}"
   buildInfo {
     properties {
-    //artifact = 'bravo'
-    //name = 'Charlie'
-      time = null // speed up builds
+      time = null // override default to speed up builds
       version = "v${rev}.${hash}"
       additional = [
         by: System.properties['user.name'] + "@" + InetAddress.localHost.hostName,
